@@ -8,7 +8,9 @@ import com.hao.library.ddd.types.admin.AdminUsername;
 import com.hao.library.ddd.types.common.CreateTime;
 import com.hao.library.ddd.types.common.InputPassword;
 import com.hao.library.ddd.types.common.UpdateTime;
+import lombok.Getter;
 
+@Getter
 public class Admin implements Aggregate<AdminId> {
 
     private AdminId adminId;
@@ -17,7 +19,7 @@ public class Admin implements Aggregate<AdminId> {
     private CreateTime createTime;
     private UpdateTime updateTime;
 
-    private Admin(AdminId adminId, AdminUsername adminUsername, AdminPassword adminPassword,
+    public Admin(AdminId adminId, AdminUsername adminUsername, AdminPassword adminPassword,
             CreateTime createTime, UpdateTime updateTime) {
         Assert.isTrue(adminId.value() >= 0);
         Assert.notNull(adminUsername);

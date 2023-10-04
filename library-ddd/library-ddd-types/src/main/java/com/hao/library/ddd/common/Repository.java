@@ -15,21 +15,21 @@ public interface Repository<T extends Aggregate<ID>, ID extends Identifier> {
 //    void detach(@NotNull T aggregate);
 
     /**
-     * 通过ID寻找Aggregate。
-     * 找到的Aggregate自动是可追踪的
+     * 保存一个 Aggregate
+     * 保存后自动重置追踪条件
      */
-    T find(ID id);
+    void save(T aggregate);
 
     /**
-     * 将一个Aggregate从Repository移除
-     * 操作后的aggregate对象自动取消追踪
+     * 将一个 Aggregate 从 Repository 移除
+     * 操作后的 Aggregate 对象自动取消追踪
      */
     void remove(T aggregate);
 
     /**
-     * 保存一个Aggregate
-     * 保存后自动重置追踪条件
+     * 通过 ID 寻找 Aggregate。
+     * 找到的 Aggregate 自动是可追踪的
      */
-    void save(T aggregate);
+    T find(ID id);
 
 }
