@@ -47,7 +47,7 @@ class AdminControllerTest {
 
         AdminLoginRO inputRo3 = new AdminLoginRO();
         inputRo2.setUsername("admin232");
-        inputRo2.setPassword("admindsafdsa");
+        inputRo2.setPassword("admin++--.");
         assertEquals(0, adminController.login(inputRo3));
 
     }

@@ -25,7 +25,6 @@ public class AdminController {
         AdminLoginCommand adminLoginCommand = adminConverter.roToCommand(adminLoginRO);
         Optional<Integer> optional = adminAppService.login(adminLoginCommand);
         return optional.orElse(0);
-
     }
 
 }
