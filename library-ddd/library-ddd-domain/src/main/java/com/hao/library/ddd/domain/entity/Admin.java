@@ -37,7 +37,7 @@ public class Admin implements Aggregate<AdminId> {
     public static Admin of(AdminUsername adminUsername, AdminPassword adminPassword) {
         CreateTime createTime = CreateTime.now();
         UpdateTime updateTime = UpdateTime.now();
-        return new Admin(AdminId.ZERO, adminUsername, adminPassword, createTime, updateTime);
+        return new Admin(AdminId.NULL, adminUsername, adminPassword, createTime, updateTime);
     }
 
     public boolean login(InputPassword inputPassword) {

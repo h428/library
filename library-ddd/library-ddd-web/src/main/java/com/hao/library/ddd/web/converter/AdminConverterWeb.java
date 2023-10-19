@@ -6,9 +6,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
-public interface AdminConverter {
+public interface AdminConverterWeb {
 
-    AdminConverter INSTANCE = Mappers.getMapper(AdminConverter.class);
+    AdminConverterWeb INSTANCE = Mappers.getMapper(AdminConverterWeb.class);
 
     AdminLoginCommand roToCommand(AdminLoginRO adminLoginRO);
 
