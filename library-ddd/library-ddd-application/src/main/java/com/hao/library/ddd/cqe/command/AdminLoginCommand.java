@@ -1,4 +1,4 @@
-package com.hao.library.ddd.app.cqe.command;
+package com.hao.library.ddd.cqe.command;
 
 import java.io.Serializable;
 import lombok.Data;

@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-import com.hao.library.ddd.app.cqe.command.AdminLoginCommand;
-import com.hao.library.ddd.app.service.impl.AdminAppServiceImpl;
+import com.hao.library.ddd.cqe.command.AdminLoginCommand;
+import com.hao.library.ddd.application.service.impl.AdminAppServiceImpl;
 import com.hao.library.ddd.domain.entity.Admin;
 import com.hao.library.ddd.repository.AdminRepository;
 import com.hao.library.ddd.types.admin.AdminId;

@@ -4,4 +4,8 @@ import com.hao.library.ddd.common.Identifier;
 
 public record BookId(int value) implements Identifier {
 
+    @Override
+    public boolean isNull() {
+        return false;
+    }
 }

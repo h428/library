@@ -44,4 +44,15 @@ public class Admin implements Aggregate<AdminId> {
         return adminPassword.loginWith(inputPassword);
     }
 
+    public Admin update(AdminUsername adminUsername) {
+        this.adminUsername = adminUsername;
+        this.updateTime = UpdateTime.now();
+        return this;
+    }
+
+    public Admin update(InputPassword inputPassword) {
+        this.adminPassword = AdminPassword.generateBasedOn(inputPassword);
+        return this;
+    }
+
 }

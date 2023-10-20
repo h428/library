@@ -11,9 +11,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
-public interface AdminConverter {
+public interface AdminConverterPersistence {
 
-    AdminConverter INSTANCE = Mappers.getMapper(AdminConverter.class);
+    AdminConverterPersistence INSTANCE = Mappers.getMapper(AdminConverterPersistence.class);
 
     default Admin fromDO(AdminDO adminDO) {
         AdminId adminId = new AdminId(adminDO.getId());
@@ -22,6 +22,18 @@ public interface AdminConverter {
         CreateTime createTime = new CreateTime(adminDO.getCreateTime());
         UpdateTime updateTime = new UpdateTime(adminDO.getUpdateTime());
         return new Admin(adminId, adminUsername, adminPassword, createTime, updateTime);
+    }
+
+    default AdminDO toDO(Admin admin) {
+        AdminDO adminDO = new AdminDO();
+        int id = admin.getAdminId().value();
+        adminDO.setId(id == 0 ? null : id);
+        adminDO.setUsername(admin.getAdminUsername().value());
+        adminDO.setPassword(admin.getAdminPassword().password());
+        adminDO.setSalt(admin.getAdminPassword().salt());
+        adminDO.setCreateTime(admin.getCreateTime().getValue());
+        adminDO.setCreateTime(admin.getUpdateTime().getValue());
+        return adminDO;
     }
 
 }

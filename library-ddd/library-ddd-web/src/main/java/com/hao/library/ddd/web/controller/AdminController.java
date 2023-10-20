@@ -1,8 +1,8 @@
 package com.hao.library.ddd.web.controller;
 
-import com.hao.library.ddd.app.cqe.command.AdminLoginCommand;
-import com.hao.library.ddd.app.service.AdminAppService;
-import com.hao.library.ddd.web.converter.AdminConverter;
+import com.hao.library.ddd.cqe.command.AdminLoginCommand;
+import com.hao.library.ddd.application.service.AdminAppService;
+import com.hao.library.ddd.web.converter.AdminConverterWeb;
 import com.hao.library.ddd.web.ro.AdminLoginRO;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ public class AdminController {
 
     private AdminAppService adminAppService;
 
-    private static final AdminConverter adminConverter = AdminConverter.INSTANCE;
+    private static final AdminConverterWeb adminConverter = AdminConverterWeb.INSTANCE;
 
     @PostMapping("login")
     public Integer login(@RequestBody AdminLoginRO adminLoginRO) {
