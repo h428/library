@@ -35,14 +35,19 @@ public class DbContext<T extends Aggregate<ID>, ID extends Identifier> {
         }
     }
 
+    /**
+     * update 时检测聚合根变化
+     *
+     * @param aggregate 聚合根
+     * @return 聚合根变化
+     */
     public EntityDifference detectChanges(T aggregate) {
-        if (aggregate.getId() == null) {
-            return EntityDifference.EMPTY;
-        }
+        assert aggregate != null;
+        assert !aggregate.getId().isNull();
+
         T snapshot = aggregateMap.get(aggregate.getId());
-        if (snapshot == null) {
-            attach(aggregate);
-        }
+        assert snapshot != null;
+
         return DiffUtils.diff(snapshot, aggregate);
     }
 
@@ -52,8 +57,8 @@ public class DbContext<T extends Aggregate<ID>, ID extends Identifier> {
 
     public void merge(T aggregate) {
         if (aggregate.getId() != null) {
-            T snapshot = SnapshotUtils.snapshot(aggregate);
-            aggregateMap.put(aggregate.getId(), snapshot);
+            T snapshot = SnapshotUtils.snapshot(aggregate); // 拷贝一份快照
+            aggregateMap.put(aggregate.getId(), snapshot); // 将快照放入缓存
         }
     }
 

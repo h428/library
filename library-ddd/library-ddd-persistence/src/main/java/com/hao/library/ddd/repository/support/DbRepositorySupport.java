@@ -23,14 +23,17 @@ public abstract class DbRepositorySupport<T extends Aggregate<ID>, ID extends Id
      * 由继承RepositorySupport的子类实现
      */
     protected abstract Optional<T> onSelect(ID id);
+
     protected abstract void onInsert(T aggregate);
+
     protected abstract void onUpdate(T aggregate, EntityDifference aggregateDifference);
+
     protected abstract void onDelete(T aggregate);
 
     /**
      * 主动追踪
-     * @param
-     * @return
+     *
+     * @param aggregate 聚合根
      */
     public void attach(T aggregate) {
         this.aggregateTracingManager.attach(aggregate);
@@ -38,8 +41,9 @@ public abstract class DbRepositorySupport<T extends Aggregate<ID>, ID extends Id
 
     /**
      * 差异对比
-     * @param aggregate
-     * @return
+     *
+     * @param aggregate 聚合根
+     * @return 差异
      */
     protected EntityDifference different(T aggregate) {
         return this.aggregateTracingManager.detectChanges(aggregate);
@@ -47,8 +51,8 @@ public abstract class DbRepositorySupport<T extends Aggregate<ID>, ID extends Id
 
     /**
      * 解除追踪
-     * @param
-     * @return
+     *
+     * @param aggregate 聚合根
      */
     public void detach(T aggregate) {
         this.aggregateTracingManager.detach(aggregate);

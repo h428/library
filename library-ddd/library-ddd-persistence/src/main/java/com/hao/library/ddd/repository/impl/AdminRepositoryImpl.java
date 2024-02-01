@@ -3,9 +3,11 @@ package com.hao.library.ddd.repository.impl;
 import com.hao.library.ddd.cqe.query.AdminQuery;
 import com.hao.library.ddd.domain.entity.Admin;
 import com.hao.library.ddd.persistence.converter.AdminConverterPersistence;
-import com.hao.library.ddd.persistence.db.AdminDO;
 import com.hao.library.ddd.persistence.dao.AdminDao;
+import com.hao.library.ddd.persistence.db.AdminDO;
 import com.hao.library.ddd.repository.AdminRepository;
+import com.hao.library.ddd.repository.support.DbRepositorySupport;
+import com.hao.library.ddd.repository.support.EntityDifference;
 import com.hao.library.ddd.types.admin.AdminId;
 import com.hao.library.ddd.types.admin.AdminUsername;
 import java.util.List;
@@ -15,14 +17,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class AdminRepositoryImpl implements AdminRepository {
+public class AdminRepositoryImpl extends DbRepositorySupport<Admin, AdminId> implements AdminRepository {
 
     private final AdminDao adminDao;
 
+    private static final AdminConverterPersistence CONVERTER = AdminConverterPersistence.INSTANCE;
+
     @Override
     public Optional<Admin> find(AdminUsername adminUsername) {
-        Optional<AdminDO> optionalAdminDO = adminDao.findByUsername(adminUsername.value());
-        return optionalAdminDO.map(AdminConverterPersistence.INSTANCE::fromDO);
+        return Optional.empty();
     }
 
     @Override
@@ -31,20 +34,25 @@ public class AdminRepositoryImpl implements AdminRepository {
     }
 
     @Override
-    public void save(Admin admin) {
-        AdminDO adminDO = AdminConverterPersistence.INSTANCE.toDO(admin);
-        adminDao.save(adminDO);
-    }
-
-    @Override
-    public void remove(Admin aggregate) {
-
-    }
-
-    @Override
-    public Optional<Admin> find(AdminId adminId) {
+    protected Optional<Admin> onSelect(AdminId adminId) {
         Optional<AdminDO> adminDO = adminDao.findById(adminId.value());
-        return adminDO.map(AdminConverterPersistence.INSTANCE::fromDO);
+        return adminDO.map(CONVERTER::fromDO);
     }
 
+    @Override
+    protected void onInsert(Admin aggregate) {
+
+    }
+
+    @Override
+    protected void onUpdate(Admin aggregate, EntityDifference aggregateDifference) {
+        // 发生变化的字段
+        // 新增的字段
+        // 删除的字段
+    }
+
+    @Override
+    protected void onDelete(Admin aggregate) {
+
+    }
 }

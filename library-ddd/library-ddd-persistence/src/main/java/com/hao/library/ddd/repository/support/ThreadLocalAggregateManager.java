@@ -7,7 +7,9 @@ public class ThreadLocalAggregateManager<T extends Aggregate<ID>, ID extends Ide
 
     private final ThreadLocal<DbContext<T, ID>> context;
 
+
     public ThreadLocalAggregateManager() {
+        // 每个线程都会创建一个 DbContext 对象用于维护本次操作的实体上下文
         this.context = ThreadLocal.withInitial(DbContext::new);
     }
 
@@ -16,11 +18,11 @@ public class ThreadLocalAggregateManager<T extends Aggregate<ID>, ID extends Ide
         context.get().attach(aggregate);
     }
 
-    @Override
-    public void attach(T aggregate, ID id) {
-        context.get().setId(aggregate, id);
-        context.get().attach(aggregate);
-    }
+//    @Override
+//    public void attach(T aggregate, ID id) {
+//        context.get().setId(aggregate, id);
+//        context.get().attach(aggregate);
+//    }
 
 
     @Override

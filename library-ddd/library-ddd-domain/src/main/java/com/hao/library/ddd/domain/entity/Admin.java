@@ -19,6 +19,11 @@ public class Admin implements Aggregate<AdminId> {
     private CreateTime createTime;
     private UpdateTime updateTime;
 
+    @Override
+    public AdminId getId() {
+        return adminId;
+    }
+
     public Admin(AdminId adminId, AdminUsername adminUsername, AdminPassword adminPassword,
             CreateTime createTime, UpdateTime updateTime) {
         Assert.isTrue(adminId.value() >= 0);
@@ -37,7 +42,7 @@ public class Admin implements Aggregate<AdminId> {
     public static Admin of(AdminUsername adminUsername, AdminPassword adminPassword) {
         CreateTime createTime = CreateTime.now();
         UpdateTime updateTime = UpdateTime.now();
-        return new Admin(AdminId.ZERO, adminUsername, adminPassword, createTime, updateTime);
+        return new Admin(AdminId.NULL, adminUsername, adminPassword, createTime, updateTime);
     }
 
     public boolean login(InputPassword inputPassword) {

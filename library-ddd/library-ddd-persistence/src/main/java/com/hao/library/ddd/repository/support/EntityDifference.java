@@ -1,21 +1,32 @@
 package com.hao.library.ddd.repository.support;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.hao.library.ddd.repository.support.diff.Diff;
+import com.hao.library.ddd.repository.support.diff.ListDiff;
+import java.util.HashMap;
+import java.util.Map;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class EntityDifference {
 
     public static final EntityDifference EMPTY = new EntityDifference();
 
     private boolean hasChanges;
 
-    private EntityDifferenceType type;
+    private Map<String, Diff> diffMap = new HashMap<>();
 
-    // 省略其余属性的实现
+    private Map<String, ListDiff> listDiffMap = new HashMap<>();
 
-    public EntityDifference() {
-
+    public Diff getDiff(String key) {
+        return diffMap.get(key);
     }
+
+    public ListDiff getListDiff(String key) {
+        return listDiffMap.get(key);
+    }
+
+    public void addListDiff(String key, ListDiff listDiff) {
+        listDiffMap.put(key, listDiff);
+    }
+
 }
